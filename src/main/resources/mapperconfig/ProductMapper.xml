@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracle.mapper.ProductMapper">
+    <select id="getAllProduct" resultType="java.util.HashMap">
+    select
+    p.*,pt.name AS typename
+    from product p ,producttype pt
+    WHERE p.typeid=pt.id
+    </select>
+    <select id="getAllProductByPage" resultType="java.util.HashMap">
+    <bind name="offset" value="page*pagesize-pagesize"/>
+    select
+    p.*,pt.name AS typename
+    from product p ,producttype pt
+    WHERE p.typeid=pt.id
+    limit #{offset},#{pagesize}
+    </select>
+    <select id="getRowCount" resultType="java.lang.Integer">
+    SELECT count(1) FROM product
+    </select>
+</mapper>
