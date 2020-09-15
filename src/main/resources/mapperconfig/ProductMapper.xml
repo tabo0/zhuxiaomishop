@@ -46,4 +46,10 @@
         date=#{date}
         where id=#{id}
     </update>
+    <select id="getFiveProducts" resultType="com.oracle.entity.Product">
+        select p.* from product p,producttype pt
+        where p.typeid=pt.id and pt.name='手机'
+        order by date
+        limit 0,5
+    </select>
 </mapper>

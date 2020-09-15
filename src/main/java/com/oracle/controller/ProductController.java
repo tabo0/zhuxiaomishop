@@ -49,9 +49,19 @@ public class ProductController {
         return "updateproduct";
     }
     @RequestMapping(value = "/updateproduct",method = RequestMethod.POST)
-    public String getProductById(Product product){
+    public String updateProductById(Product product){
         product.setDate(new Date());
         productService.updateProduct(product);
         return "rediret:getprobypage";
+    }
+    @RequestMapping("/index")
+    public String toShopPage(Model model){
+        List<Product> products = productService.getFiveProducts();
+        model.addAttribute("products",products);
+        return "shop";
+    }
+    @RequestMapping("/toregisterpage")
+    public String toRegisterPage(Model model){
+        return "register";
     }
 }

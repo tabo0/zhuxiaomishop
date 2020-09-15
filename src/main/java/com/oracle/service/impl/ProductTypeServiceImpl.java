@@ -13,20 +13,21 @@ import java.util.List;
 public class ProductTypeServiceImpl  implements ProductTypeService {
     @Autowired
     ProductTypeMapper productTypeMapper;
-    private int getRowCount(){
-        return productTypeMapper.getRowCount();
-    }
+    //private int getRowCount(){
+//        return productTypeMapper.getRowCount();
+//    }
     @Override
-    public PageBean<Producttype> getAllProductTypeByPage(int page, int pagesize) {
-        List<Producttype> list=productTypeMapper.getProductTypeBypage(page,pagesize);
+    public PageBean<Producttype> getAllProductTypeByPage(int page, int pagesize,int typeId,String typeName) {
+        List<Producttype> list=productTypeMapper.getProductTypeBypage(page,pagesize,typeId,typeName);
         PageBean<Producttype> pb=new PageBean<>();
         pb.setPage(page);
         pb.setList(list);
-        int rowcount=rowcount();
-        System.out.println("+++++="+rowcount);
-        for(Producttype i :list){
-            System.out.println(i.getName());
-        }
+        int rowcount=rowcount(typeId,typeName);
+        pb.setRowcount(rowcount);
+        //System.out.println("+++++="+rowcount);
+//        for(Producttype i :list){
+//            System.out.println(i.getName());
+//        }
         System.out.println(list);
         if(rowcount%pagesize==0){
             pb.setPages(rowcount/pagesize);
@@ -42,7 +43,7 @@ public class ProductTypeServiceImpl  implements ProductTypeService {
         return productTypeMapper.getAll();
     }
 
-    private int rowcount(){
-        return productTypeMapper.getRowCount();
+    private int rowcount(int typeId,String typeName){
+        return productTypeMapper.getRowCount(typeId,typeName);
     }
 }

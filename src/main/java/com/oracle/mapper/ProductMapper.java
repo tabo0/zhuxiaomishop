@@ -14,4 +14,5 @@ public interface ProductMapper {
     public int getRowCount(@Param("name") String name,@Param("typeid")int typeid);
     public Product getProductById(@Param("id") int id);
     public int updateProduct(Product product);
+    public List<Product> getFiveProducts();
 }

@@ -5,10 +5,27 @@
 <mapper namespace="com.oracle.mapper.ProductTypeMapper">
     <select id="getProductTypeBypage" resultType="com.oracle.entity.Producttype">
         <bind name="offset" value="page*pagesize-pagesize"/>
-        select * from  producttype limit #{offset},#{pagesize}
+        select * from  producttype
+        where 1=1
+        <if test="typeId!=-1">
+            and id=#{typeId}
+        </if>
+        <if test="typeName!=null and typeName!=''">
+            <bind name="p_name" value="'%'+typeName+'%'"/>
+            and name like #{p_name}
+        </if>
+        limit #{offset},#{pagesize}
     </select>
     <select id="getRowCount" resultType="java.lang.Integer">
     SELECT count(1) FROM producttype
+    where 1=1
+    <if test="typeId!=-1">
+        and id=#{typeId}
+    </if>
+        <if test="typeName!=null">
+            <bind name="p_name" value="'%'+typeName+'%'"/>
+            and name like #{p_name}
+        </if>
     </select>
     <select id="getAll" resultType="com.oracle.entity.Producttype">
     SELECT * FROM producttype
