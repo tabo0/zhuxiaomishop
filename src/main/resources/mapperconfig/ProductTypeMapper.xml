@@ -10,4 +10,7 @@
     <select id="getRowCount" resultType="java.lang.Integer">
     SELECT count(1) FROM producttype
     </select>
+    <select id="getAll" resultType="com.oracle.entity.Producttype">
+    SELECT * FROM producttype
+    </select>
 </mapper>

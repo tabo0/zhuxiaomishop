@@ -6,6 +6,16 @@ public class Users {
     private String udepartment;
     private String realname;
     private Integer roleid;
+    private String uimage;
+
+    public String getUimage() {
+        return uimage;
+    }
+
+    public void setUimage(String uimage) {
+        this.uimage = uimage;
+    }
+
     public Users() {
         super();
     }

@@ -1,6 +1,7 @@
 package com.oracle.service.impl;
 
 import com.oracle.entity.PageBean;
+import com.oracle.entity.Product;
 import com.oracle.mapper.ProductMapper;
 import com.oracle.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public PageBean<HashMap<String, Object>> getAllProductByPage(int page,int pagesize) {
-        List<HashMap<String,Object>> list=productMapper.getAllProductByPage(page,pagesize);
+    public PageBean<HashMap<String, Object>> getAllProductByPage(int page,int pagesize,String name,int typeid) {
+        List<HashMap<String,Object>> list=productMapper.getAllProductByPage(page,pagesize,name,typeid);
         PageBean<HashMap<String ,Object>> pb=new PageBean<>();
         pb.setPage(page);
         pb.setList(list);
-        int rowcount=rowcount();
+        int rowcount=rowcount(name,typeid);
         if(rowcount%pagesize==0){
             pb.setPages(rowcount/pagesize);
         }else{
@@ -32,7 +33,18 @@ public class ProductServiceImpl implements ProductService {
 
         return pb;
     }
-    private int rowcount(){
-        return productMapper.getRowCount();
+
+    @Override
+    public Product getProductById(int id) {
+        return productMapper.getProductById(id);
+    }
+
+    @Override
+    public int updateProduct(Product product) {
+        return productMapper.updateProduct(product);
+    }
+
+    private int rowcount(String name,int typeid){
+        return productMapper.getRowCount(name,typeid);
     }
 }

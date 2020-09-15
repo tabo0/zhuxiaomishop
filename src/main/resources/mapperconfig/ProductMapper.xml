@@ -15,9 +15,35 @@
     p.*,pt.name AS typename
     from product p ,producttype pt
     WHERE p.typeid=pt.id
+    <if test="name!=null and name!=''">
+        <bind name="p_name" value="'%'+name+'%'"/>
+        and p.name like #{p_name}
+    </if>
+    <if test="typeid!=-1">
+        and p.typeid=#{typeid}
+    </if>
+
+    order by date desc
     limit #{offset},#{pagesize}
     </select>
     <select id="getRowCount" resultType="java.lang.Integer">
-    SELECT count(1) FROM product
+    SELECT count(1) FROM product where 1=1
+        <if test="name!=null and name!=''">
+            <bind name="p_name" value="'%'+name+'%'"/>
+            and name like #{p_name}
+        </if>
+        <if test="typeid!=-1">
+            and typeid=#{typeid}
+        </if>
     </select>
+    <select id="getProductById" resultType="com.oracle.entity.Product">
+        SELECT * FROM product WHERE id= #{id}
+    </select>
+    <update id="updateProduct" parameterType="com.oracle.entity.Product">
+        update product
+        set name=#{name},content=#{content},price=#{price},
+        image=#{image},number=#{number},typeid=#{typeid},
+        date=#{date}
+        where id=#{id}
+    </update>
 </mapper>

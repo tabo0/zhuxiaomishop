@@ -36,6 +36,12 @@ public class ProductTypeServiceImpl  implements ProductTypeService {
 
         return pb;
     }
+
+    @Override
+    public List<Producttype> getAllProductType() {
+        return productTypeMapper.getAll();
+    }
+
     private int rowcount(){
         return productTypeMapper.getRowCount();
     }
