@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -14,7 +15,7 @@ import java.util.Objects;
 public class UsersController {
     @Autowired
     private UsersService usersService;
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     public String userLogin(String uname, String upass, Model model, HttpSession session){
         HashMap<String,Object> users=usersService.login(uname,upass);
         if(Objects.isNull(users)){
@@ -23,5 +24,9 @@ public class UsersController {
         }
         session.setAttribute("users",users);
         return "main";
+    }
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    public String toLoginPage(){
+        return "login";
     }
 }
