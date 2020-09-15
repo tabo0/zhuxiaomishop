@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- 扫描该包下的类是否有注解 -->
+	<!-- 注解： @Service 业务层的实现类 @Autowired 调用的程序 -->
+	<!-- spring+springmvc+mybatis -->
+	<context:component-scan base-package="com.oracle"></context:component-scan>
+	<!-- 导入springMVC配置文件 -->
+	<import resource="classpath:spring-mvc.xml" />
+	<!-- 导入数据源文件  -->
+	<import resource="classpath:data-source.xml" />
+
+</beans>

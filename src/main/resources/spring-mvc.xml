@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 子容器只包含Controller -->
+	<!-- 扫描该包下的类是否有注解 -->
+	<!-- 注解： @Controller 业务层的实现类 @RequestMapping 请求的url -->
+	<context:component-scan base-package="com.oracle.controller"
+		use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!-- 可以使用 Spring MVC @Controller注解 -->
+	<!-- 可以使用HandlerMapping 和HandlerAdapter -->
+	<mvc:annotation-driven />
+
+	<!-- 可以任意访问静态资源 配置静态资源的路径 *只能访问resources/js **resources/js/xxx -->
+	<!--src/main/webapp/resources/css -->
+	<!--src/main/webapp/resources/images -->
+	<!--src/main/webapp/resources/js -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+
+	<!--使用 @Controllers解析视图查找.jsp在/WEB-INF/back/xxx.jsp目录 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 文件上传的处理类 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1024000" />
+		<property name="defaultEncoding" value="utf-8" />
+	</bean>
+
+
+	<!-- 设置默认访问的欢迎页面 get -->
+	<mvc:view-controller path="/" view-name="login" />
+
+</beans>

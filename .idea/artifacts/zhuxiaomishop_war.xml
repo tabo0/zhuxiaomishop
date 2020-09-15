@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="zhuxiaomishop:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>zhuxiaomishop</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="zhuxiaomishop.war">
+      <element id="artifact" artifact-name="zhuxiaomishop:war exploded" />
+    </root>
+  </artifact>
+</component>
