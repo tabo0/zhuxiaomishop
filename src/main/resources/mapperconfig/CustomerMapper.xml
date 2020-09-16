@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracle.mapper.CustomerMapper">
+    <insert id="customerRegister">
+        insert into customer(cname,cpass) values(#{cname},#{cpass})
+    </insert>
+    <select id="checkCname" resultType="int">
+        select count(1) from customer where cname=#{cname}
+    </select>
+    <select id="customerLogin" resultType="com.oracle.entity.Customer">
+        select cid,cname from customer
+        where cname= #{cname} and cpass = #{cpass}
+    </select>
+
+</mapper>

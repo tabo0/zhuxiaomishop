@@ -52,7 +52,7 @@ public class ProductController {
     public String updateProductById(Product product){
         product.setDate(new Date());
         productService.updateProduct(product);
-        return "rediret:getprobypage";
+        return "redirect:/getprobypage";
     }
     @RequestMapping("/index")
     public String toShopPage(Model model){
@@ -63,5 +63,16 @@ public class ProductController {
     @RequestMapping("/toregisterpage")
     public String toRegisterPage(Model model){
         return "register";
+    }
+    @RequestMapping(value = "/getproductdetail",method = RequestMethod.GET)
+    public String getProductDetail(int id,Model model){
+        Product product=productService.getProductDetail(id);
+        model.addAttribute("product",product);
+        return "productdetail";
+    }
+    @RequestMapping(value = "/delproduct")
+    public String delProduct(int id,Model model){
+        productService.delProduct(id);
+        return "redirect:/getprobypage";
     }
 }

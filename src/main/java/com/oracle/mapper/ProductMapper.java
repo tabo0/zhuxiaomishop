@@ -15,4 +15,6 @@ public interface ProductMapper {
     public Product getProductById(@Param("id") int id);
     public int updateProduct(Product product);
     public List<Product> getFiveProducts();
+    public int delProduct(@Param("id") int id);
+    public Product getProductDetail(@Param("id") int id);
 }

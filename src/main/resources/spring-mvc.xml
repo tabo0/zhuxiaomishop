@@ -42,4 +42,13 @@
 	<!-- 设置默认访问的欢迎页面 get -->
 	<mvc:view-controller path="/" view-name="login" />
 
+	<mvc:annotation-driven >
+		<!-- 消息转换器 -->
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes" value="text/plain;charset=UTF-8"/>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
 </beans>

@@ -52,4 +52,11 @@
         order by date
         limit 0,5
     </select>
+    <delete id="delProduct" >
+        delete from product
+        where id= #{id}
+    </delete>
+    <select id="getProductDetail" resultType="com.oracle.entity.Product">
+        select * from product where id = #{id}
+    </select>
 </mapper>
