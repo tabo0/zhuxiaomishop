@@ -59,4 +59,12 @@
     <select id="getProductDetail" resultType="com.oracle.entity.Product">
         select * from product where id = #{id}
     </select>
+    <delete id="delBatchProduct">
+        delete
+        from product
+        where id in
+        <foreach collection="array" open="(" separator="," close=")" item="id">
+            ${id}
+        </foreach>
+    </delete>
 </mapper>

@@ -10,4 +10,7 @@ public interface ProductTypeMapper {
                                            @Param("typeId")int typeId,@Param("typeName") String typeName);
     int getRowCount(@Param("typeId")int typeId,@Param("typeName") String typeName);
     List<Producttype> getAll();
+    Producttype selectProductTypeById(@Param("id") int id);
+    int updateProductType(Producttype pt);
+    int addProtype(Producttype pt);
 }

@@ -15,4 +15,5 @@ public interface ProductService {
     public List<Product> getFiveProducts();
     public int delProduct(int id);
     public Product getProductDetail(int id);
+    public int delBatchProduct(int[] ids);
 }

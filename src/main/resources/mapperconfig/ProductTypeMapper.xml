@@ -30,4 +30,16 @@
     <select id="getAll" resultType="com.oracle.entity.Producttype">
     SELECT * FROM producttype
     </select>
+    <select id="selectProductTypeById" resultType="com.oracle.entity.Producttype">
+        select * from  producttype
+        where id= #{id}
+    </select>
+    <update id="updateProductType" parameterType="com.oracle.entity.Producttype">
+        update producttype
+        set name= #{name}
+        where id= #{id}
+    </update>
+    <insert id="addProtype" parameterType="com.oracle.entity.Producttype">
+        insert into producttype  values (#{id},#{name});
+    </insert>
 </mapper>

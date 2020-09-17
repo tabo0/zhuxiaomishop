@@ -43,6 +43,21 @@ public class ProductTypeServiceImpl  implements ProductTypeService {
         return productTypeMapper.getAll();
     }
 
+    @Override
+    public Producttype selectProductTypeById(int id) {
+        return productTypeMapper.selectProductTypeById(id);
+    }
+
+    @Override
+    public int updateProductType(Producttype pt) {
+        return productTypeMapper.updateProductType(pt);
+    }
+
+    @Override
+    public int addProtype(Producttype pt) {
+        return productTypeMapper.addProtype(pt);
+    }
+
     private int rowcount(int typeId,String typeName){
         return productTypeMapper.getRowCount(typeId,typeName);
     }

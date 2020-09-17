@@ -6,10 +6,7 @@ import com.oracle.service.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,5 +42,29 @@ public class ProductTypeController {
         resultMap.put("tid",typeid);
         resultMap.put("tname",typeName);
         return resultMap;
+    }
+    @GetMapping("toupdateprotypepage")
+    public String selectProductTypeById(int id, Model model){
+        model.addAttribute("producttype",productTypeService.selectProductTypeById(id));
+        return "updateproducttype";
+    }
+    @GetMapping("producttypemodify")
+    public String productTypeModify(int id, Model model){
+        model.addAttribute("producttype",productTypeService.selectProductTypeById(id));
+        return "updateproducttype";
+    }
+    @PostMapping("updateprotype")
+    public String updateProductType(Producttype pt){
+        productTypeService.updateProductType(pt);
+        return "redirect:/toproducttypepage";
+    }
+    @PostMapping("addprotype")
+    public String addProtype(Producttype pt){
+        productTypeService.addProtype(pt);
+        return "redirect:/toproducttypepage";
+    }
+    @GetMapping("addproducttypepage")
+    public String addPage(){
+        return "addproducttype";
     }
 }
