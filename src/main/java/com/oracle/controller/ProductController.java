@@ -11,10 +11,12 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 @Controller
 public class ProductController {
@@ -39,6 +41,12 @@ public class ProductController {
         List<Producttype> list=productTypeService.getAllProductType();
         model.addAttribute("ptlist",list);
         return "addproduct";
+    }
+    @RequestMapping(value = "/addproduct",method = RequestMethod.POST)
+    public String addProduct(Product product){
+        product.setDate(new Date());
+        productService.addProduct(product);
+        return "redirect:/getprobypage";
     }
     @RequestMapping(value = "/getproductbyid",method = RequestMethod.GET)
     public String getProductById(int id,Model model){
@@ -79,5 +87,32 @@ public class ProductController {
     public String delBatchProduct(int[] ids) {
         productService.delBatchProduct(ids);
         return "redirect:/getprobypage";
+    }
+    //实现文件上传
+    @PostMapping("/produpload")
+    @ResponseBody   //将数据转换成json格式
+    public Map<String, String> uploadFile(MultipartFile upimage, HttpServletRequest request) throws IOException {
+        //获取文件名
+        String fileName = upimage.getOriginalFilename();
+        //上传后的文件名(uuid + 文件扩展名)
+        String realName = UUID.randomUUID().toString() + fileName.substring(fileName.indexOf("."));
+        //服务器路径
+        String serverPath = request.getServletContext().getRealPath("/") + "/resources/image_big/";
+
+        Map<String, String> result = new HashMap<>();
+        File file = new File(serverPath + realName);
+        try {
+            //上传文件
+            upimage.transferTo(file);
+            //返回结果
+            result.put("imgurl", request.getContextPath() + "/resources/image_big/" + realName);
+            result.put("imgName", realName);
+        }
+        catch (IllegalStateException | IOException e) {
+            e.printStackTrace();
+        }
+
+        //json {"imgurl":"上传路径", "imgName":"文件名"}
+        return result;
     }
 }

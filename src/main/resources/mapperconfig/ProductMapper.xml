@@ -67,4 +67,7 @@
             ${id}
         </foreach>
     </delete>
+    <insert id="addProduct" parameterType="com.oracle.entity.Product">
+        insert into product values (default ,#{name},#{content},#{price},#{image},#{number},#{typeid},#{date});
+    </insert>
 </mapper>

@@ -9,4 +9,13 @@
         from users u,role r
         where u.roleid=r.id and uname = #{uname} and upass=#{upass}
     </select>
+
+    <select id="getUsers" resultType="com.oracle.entity.Users">
+        <bind name="offset" value="page*pagesize-pagesize"/>
+        select * from  users
+        limit #{offset},#{pagesize}
+    </select>
+    <select id="getRowCount" resultType="java.lang.Integer">
+        select count(1) from users;
+    </select>
 </mapper>
