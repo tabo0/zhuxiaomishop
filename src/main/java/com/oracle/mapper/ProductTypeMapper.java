@@ -13,4 +13,5 @@ public interface ProductTypeMapper {
     Producttype selectProductTypeById(@Param("id") int id);
     int updateProductType(Producttype pt);
     int addProtype(Producttype pt);
+    int delProductType(@Param("id") int id);
 }

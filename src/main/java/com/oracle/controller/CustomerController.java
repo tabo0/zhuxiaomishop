@@ -23,7 +23,7 @@ public class CustomerController {
     @RequestMapping(value = "/doregister",method = RequestMethod.POST)
     public String doRegister(String cname, String cpass, String yzm, HttpSession session, Model model){
         String rdmcode=(String) session.getAttribute("rdmCode");
-        rdmcode="12345";
+        //rdmcode="12345";
         int count=customerService.checkCname(cname);
         if(count>0){
             model.addAttribute("error","Account exists please modify");
@@ -56,7 +56,7 @@ public class CustomerController {
     @RequestMapping(value = "/customerlogin",method = RequestMethod.POST)
     public String customerLogin(String cname, String cpass, String yzm, HttpSession session, Model model){
         String rdmcode=(String) session.getAttribute("rdmCode");
-        rdmcode="12345";
+        //rdmcode="12345";
         if(!rdmcode.equalsIgnoreCase(yzm)){
             model.addAttribute("error","rdmcode not right");
             return "customerlogin";

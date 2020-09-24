@@ -58,6 +58,11 @@ public class ProductTypeServiceImpl  implements ProductTypeService {
         return productTypeMapper.addProtype(pt);
     }
 
+    @Override
+    public int delProductType(int id) {
+        return productTypeMapper.delProductType(id);
+    }
+
     private int rowcount(int typeId,String typeName){
         return productTypeMapper.getRowCount(typeId,typeName);
     }

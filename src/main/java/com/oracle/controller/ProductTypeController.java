@@ -67,4 +67,9 @@ public class ProductTypeController {
     public String addPage(){
         return "addproducttype";
     }
+    @GetMapping("delproducttype")
+    public String delProductType(int id){
+        productTypeService.delProductType(id);
+        return "redirect:/toproducttypepage";
+    }
 }

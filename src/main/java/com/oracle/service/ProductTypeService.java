@@ -11,4 +11,5 @@ public interface ProductTypeService {
     public Producttype selectProductTypeById(int id);
     public int updateProductType(Producttype pt);
     public int addProtype(Producttype pt);
+    public int delProductType(int id);
 }

@@ -42,4 +42,7 @@
     <insert id="addProtype" parameterType="com.oracle.entity.Producttype">
         insert into producttype  values (#{id},#{name});
     </insert>
+    <delete id="delProductType" >
+        delete from producttype where id=#{id}
+    </delete>
 </mapper>

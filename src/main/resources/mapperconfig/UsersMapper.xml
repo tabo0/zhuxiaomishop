@@ -10,12 +10,80 @@
         where u.roleid=r.id and uname = #{uname} and upass=#{upass}
     </select>
 
-    <select id="getUsers" resultType="com.oracle.entity.Users">
-        <bind name="offset" value="page*pagesize-pagesize"/>
-        select * from  users
-        limit #{offset},#{pagesize}
-    </select>
+    <!--    获取总行数-->
     <select id="getRowCount" resultType="java.lang.Integer">
-        select count(1) from users;
+        select count(1)
+        from users
+        where 1=1
+        <if test="uname!=null and uname!=''">
+            <bind name="testname" value="'%'+uname+'%'"/>
+            and uname like #{testname}
+        </if>
+        <if test="roleid!=-1">
+            and roleid = #{roleid}
+        </if>
     </select>
+
+    <!--    获取员工信息-->
+    <select id="getAllUsersByPage" resultType="java.util.HashMap">
+        <bind name="offset" value="page*pagesize-pagesize"/>
+        select u.*, r.rolename as rolename
+        from users u left join role r
+        on u.roleid = r.id
+        where 1=1
+        <if test="uname!=null and uname!=''">
+            <bind name="testname" value="'%'+uname+'%'"/>
+            and u.uname like #{testname}
+        </if>
+        <if test="roleid!=-1">
+            and roleid = #{roleid}
+        </if>
+        order by roleid desc
+        limit #{offset}, #{pagesize}
+    </select>
+
+    <!--    获取员工类型-->
+    <select id="getAllRole" resultType="com.oracle.entity.Role">
+        select *
+        from role
+    </select>
+
+    <!--    删除员工-->
+    <delete id="delUsers">
+        delete
+        from users
+        where uid = #{uid}
+    </delete>
+
+    <!--    批量删除-->
+    <delete id="delBatchUsers">
+        delete
+        from users
+        where uid in
+        <foreach collection="array" open="(" separator="," close=")" item="uid">
+            #{uid}
+        </foreach>
+    </delete>
+
+    <!--    添加员工-->
+    <insert id="addUsers">
+        insert into users(uname, upass, udepartment, realname, roleid, uimage)
+        values(#{users.uname}, #{users.upass}, #{users.udepartment},
+               #{users.realname}, #{users.roleid}, #{users.uimage})
+    </insert>
+
+    <!--    通过id获取员工信息-->
+    <select id="getUsersById" resultType="com.oracle.entity.Users">
+        select *
+        from users
+        where uid = #{uid}
+    </select>
+
+    <!--    修改员工信息-->
+    <update id="updateUsers">
+        update users
+        set uname = #{users.uname}, udepartment = #{users.udepartment},
+            realname = #{users.realname}, roleid = #{users.roleid}, uimage = #{users.uimage}
+        where uid = #{users.uid}
+    </update>
 </mapper>
